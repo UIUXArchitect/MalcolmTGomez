@@ -107,7 +107,7 @@
   }
 
   .taskbar{
-    position:absolute;
+    position:fixed;
     left:0;right:0;bottom:0;
     height:46px;
     background:linear-gradient(#d9d3dc,#c8c0cd);
@@ -274,8 +274,14 @@
     .signature{display:none}
     .icon-grid{left:12px;top:18px;grid-template-columns:repeat(3,82px);column-gap:8px;row-gap:17px}
     .desk-icon{width:82px;min-height:80px}.icon-label{font-size:10px;max-width:82px}.glyph{transform:scale(.9)}
-    .window{width:94vw;height:72vh;left:3vw!important;top:8vh!important;transform:none!important}
-    .project-row{grid-template-columns:1fr}.project-row>div{border-right:0;border-bottom:1px solid var(--line)}.project-row>div:last-child{border-bottom:0}.project-row.header{display:none}
+.window{
+  width:94vw;
+  left:3vw!important;
+  top:8vh!important;
+  bottom:58px!important;
+  height:auto!important;
+  transform:none!important;
+}    .project-row{grid-template-columns:1fr}.project-row>div{border-right:0;border-bottom:1px solid var(--line)}.project-row>div:last-child{border-bottom:0}.project-row.header{display:none}
     .case-grid,.two-col{grid-template-columns:1fr}.case-wide{grid-column:auto}
     .tasks{display:none}.clock{margin-left:auto}.taskbar{height:42px}.start-menu{bottom:42px}
   }
