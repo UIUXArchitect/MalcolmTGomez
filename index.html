@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Malcolm T. Gomez — Portfolio</title>
+<style>
+  :root{
+    --bg:#3a205f;
+    --ink:#24112f;
+    --muted:#735f82;
+    --paper:#fbf8ff;
+    --line:#2f1742;
+    --soft:#e9def4;
+    --bar:#d8c4ec;
+    --accent:#6f45d6;
+    --accent-2:#9a3f8e;
+    --shadow: 10px 10px 0 rgba(35,14,52,.24);
+  }
+  *{box-sizing:border-box}
+  html,body{width:100%;height:100%;margin:0;overflow:hidden}
+  body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+  button,a{font:inherit}
+  button{color:inherit}
+
+  .desktop{
+    position:relative;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 78% 18%, rgba(205,86,176,.36), transparent 32%),
+      radial-gradient(circle at 28% 84%, rgba(94,78,224,.32), transparent 34%),
+      linear-gradient(135deg,#34205f 0%,#512c72 48%,#7b356f 100%),
+      repeating-linear-gradient(0deg,transparent 0,transparent 3px,rgba(255,255,255,.018) 4px);
+  }
+
+  .signature{
+    position:absolute;
+    top:22px;
+    right:26px;
+    text-align:right;
+    z-index:1;
+    pointer-events:none;
+  }
+  .signature .name{font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#fff7ff;text-shadow:0 1px 0 rgba(0,0,0,.18)}
+  .signature .role{margin-top:4px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#e2c8ee}
+
+  .icon-grid{
+    position:absolute;
+    left:24px;
+    top:26px;
+    display:grid;
+    grid-template-columns:repeat(3, 94px);
+    column-gap:18px;
+    row-gap:24px;
+    z-index:2;
+  }
+  .desk-icon{
+    width:94px;
+    min-height:88px;
+    border:0;
+    background:transparent;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .desk-icon:focus-visible{outline:1px dashed var(--ink);outline-offset:5px}
+  .desk-icon:hover .icon-label{background:#f9efff;color:var(--ink)}
+  .icon-label{
+    max-width:94px;
+    padding:2px 4px;
+    font-size:11px;
+    line-height:1.15;
+    text-align:center;
+    color:#fff8ff;
+    text-shadow:0 1px 1px rgba(28,9,42,.45);
+  }
+
+  .glyph{
+    width:64px;height:58px;position:relative;display:grid;place-items:center;
+    transition:transform .12s ease,filter .12s ease;
+    filter:drop-shadow(3px 4px 0 rgba(0,0,0,.12));
+  }
+  .desk-icon:hover .glyph{transform:translateY(-2px) scale(1.025)}
+  .desk-icon[data-selected="true"] .glyph{transform:translateY(-1px)}
+  .glyph svg{width:64px;height:58px;display:block;overflow:visible}
+  .glyph .stroke{stroke:#111;stroke-width:2.1;stroke-linejoin:round;stroke-linecap:round}
+  .glyph .thin{stroke:#111;stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round}
+  .glyph .paper{fill:#fffdf7}
+  .glyph .cream{fill:#efe1ff}
+  .glyph .yellow{fill:#cf9dff}
+  .glyph .blue{fill:#7166e8}
+  .glyph .red{fill:#b7488e}
+  .glyph .green{fill:#6856c9}
+  .glyph .orange{fill:#98457f}
+  .glyph .black{fill:#24112f}
+  .glyph .screen{fill:#ddd5ff}
+  .glyph text{font-family:"Courier New",monospace;fill:#111;font-weight:700}
+  .desk-icon:hover .icon-label,
+  .desk-icon[data-selected="true"] .icon-label{
+    background:#f9efff;color:var(--ink);box-shadow:2px 2px 0 rgba(35,14,52,.20);text-shadow:none
+  }
+
+  .taskbar{
+    position:absolute;
+    left:0;right:0;bottom:0;
+    height:46px;
+    background:linear-gradient(#d9d3dc,#c8c0cd);
+    border-top:2px solid #f4eef8;
+    box-shadow:0 -2px 0 #7b6d84;
+    display:flex;
+    align-items:center;
+    z-index:500;
+  }
+  .start{
+    height:40px;
+    min-width:118px;
+    margin:3px 0 3px 4px;
+    border:2px solid #3e245d;
+    border-top-color:#fff;
+    border-left-color:#fff;
+    border-radius:3px;
+    background:linear-gradient(#f0e8f6,#d9cfe2);
+    box-shadow:inset -2px -2px 0 #8c7d96, 2px 0 0 rgba(34,18,48,.25);
+    padding:0 12px 0 10px;
+    text-transform:uppercase;
+    font:800 17px/1 Georgia,serif;
+    letter-spacing:.02em;
+    cursor:pointer;
+    display:flex;align-items:center;gap:9px;
+    color:#2f1742;
+  }
+  .start::before{
+    content:"";width:20px;height:20px;display:block;
+    background:
+      linear-gradient(#6e4bcc,#6e4bcc) 0 0/9px 9px no-repeat,
+      linear-gradient(#a64793,#a64793) 11px 0/9px 9px no-repeat,
+      linear-gradient(#8a69e8,#8a69e8) 0 11px/9px 9px no-repeat,
+      linear-gradient(#572d79,#572d79) 11px 11px/9px 9px no-repeat;
+    transform:skewY(-5deg);
+  }
+  .start:hover,.start[aria-expanded="true"]{background:linear-gradient(#f7effb,#e4d7ef);box-shadow:inset -2px -2px 0 #6d5e75,0 0 0 3px #b98cff}
+  .tasks{display:flex;gap:6px;padding:0 10px;min-width:0;flex:1;overflow:hidden}
+  .task-btn{
+    border:1px solid #6e6175;border-top-color:#fff;border-left-color:#fff;background:#e8e2eb;font-size:10px;padding:5px 9px;white-space:nowrap;cursor:pointer;max-width:165px;overflow:hidden;text-overflow:ellipsis
+  }
+  .task-btn.active{background:#6550c8;color:#fff}
+  .clock{
+    height:100%;min-width:104px;border-left:2px solid #8e8195;display:flex;align-items:center;justify-content:center;font:700 10px/1.25 monospace;text-align:center;padding:0 10px;background:rgba(255,255,255,.16)
+  }
+
+  .window{
+    position:absolute;
+    width:min(730px,78vw);
+    height:min(560px,72vh);
+    left:50%;
+    top:49%;
+    transform:translate(-50%,-50%);
+    background:var(--paper);
+    border:2px solid var(--line);
+    box-shadow:var(--shadow);
+    display:none;
+    flex-direction:column;
+    z-index:20;
+    min-width:320px;
+  }
+  .window.open{display:flex}
+  .window.minimized{display:none}
+  .titlebar{
+    height:34px;
+    border-bottom:2px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    cursor:move;
+    user-select:none;
+    background:#dccaf0
+  }
+  .titlebar-title{padding-left:10px;font:700 11px/1 monospace;text-transform:uppercase;letter-spacing:.03em}
+  .win-controls{height:100%;display:flex}
+  .win-controls button{
+    width:36px;border:0;border-left:2px solid var(--line);background:transparent;cursor:pointer;font:700 14px/1 monospace
+  }
+  .win-controls button:hover{background:var(--accent);color:#fff}
+  .window-body{padding:22px;overflow:auto;min-height:0;flex:1}
+  .window-body h1{font-size:25px;line-height:1.05;margin:0 0 8px;letter-spacing:-.02em}
+  .window-body h2{font-size:14px;margin:26px 0 8px;text-transform:uppercase;letter-spacing:.05em}
+  .window-body h3{font-size:13px;margin:0 0 6px}
+  .window-body p,.window-body li{font-size:13px;line-height:1.6}
+  .muted{color:var(--muted)}
+  .lede{max-width:620px;font-size:14px!important;line-height:1.65!important;margin:0}
+  .rule{height:2px;background:var(--line);margin:18px 0}
+  .file-note{font:11px/1.6 monospace;white-space:pre-wrap}
+  .tagline{font:700 10px/1.4 monospace;text-transform:uppercase;letter-spacing:.06em}
+
+  .project-table{border:2px solid var(--line);margin-top:18px}
+  .project-row{
+    display:grid;
+    grid-template-columns:1.2fr 1fr 90px;
+    border-bottom:1px solid var(--line);
+    cursor:pointer;
+    background:transparent;
+  }
+  .project-row:last-child{border-bottom:0}
+  .project-row:hover{background:var(--accent);color:#fff}
+  .project-row > div{padding:10px 11px;font-size:11px;border-right:1px solid var(--line)}
+  .project-row > div:last-child{border-right:0}
+  .project-row.header{cursor:default;background:var(--bar);font:700 10px/1 monospace;text-transform:uppercase}
+  .project-row.header:hover{background:var(--bar);color:var(--ink)}
+  .project-row.header > div{font-size:10px}
+
+  .case-top{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}
+  .case-id{font:700 10px/1.4 monospace;border:1px solid var(--line);padding:5px 7px;white-space:nowrap}
+  .case-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+  .case-box{border:1px solid var(--line);padding:12px}
+  .case-box b{display:block;font:700 9px/1 monospace;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px;color:var(--muted)}
+  .case-box p{margin:0;font-size:12px;line-height:1.55}
+  .case-wide{grid-column:1/-1}
+  .back-link{border:0;background:transparent;padding:0;margin:0 0 14px;font:700 10px/1 monospace;text-transform:uppercase;cursor:pointer;text-decoration:underline}
+
+  .two-col{display:grid;grid-template-columns:1.25fr .75fr;gap:22px}
+  .mini-list{border-top:1px solid var(--line);margin-top:10px}
+  .mini-list div{padding:9px 0;border-bottom:1px solid var(--line);font-size:11px;line-height:1.4}
+
+  .start-menu{
+    position:absolute;left:4px;bottom:46px;width:286px;
+    background:#c8c4ca;border:2px solid #f7f4f8;border-right-color:#55505a;border-bottom-color:#55505a;
+    z-index:600;display:none;box-shadow:5px -5px 0 rgba(24,12,32,.18);
+    font-family:"Courier New",monospace;color:#241b29;
+  }
+  .start-menu.open{display:block}
+  .start-menu .menu-brand{
+    min-height:78px;padding:13px 16px;display:flex;align-items:center;gap:14px;
+    color:#fff;background:linear-gradient(135deg,#27119d,#66198c 68%,#922d83);
+    border-bottom:2px solid #f5f1f7;font:700 17px/1.1 "Courier New",monospace;
+  }
+  .menu-brand .brand-monitor{width:43px;height:33px;border:2px solid #e8e0f4;background:linear-gradient(#302f35,#09090c);display:block;position:relative;box-shadow:2px 2px 0 #1d1026}
+  .menu-brand .brand-monitor:after{content:"";position:absolute;left:16px;right:16px;bottom:-9px;height:7px;background:#d9d0e0;border:1px solid #46384f}
+  .menu-brand .brand-monitor:before{content:"";position:absolute;left:9px;right:9px;top:8px;bottom:7px;background:linear-gradient(145deg,#4f3f79,#171324)}
+  .menu-row{width:100%;height:48px;display:grid;grid-template-columns:34px 1fr 20px;align-items:center;gap:8px;text-align:left;border:0;background:transparent;padding:0 14px 0 16px;font:18px/1 "Courier New",monospace;cursor:pointer;color:#271d2d}
+  .menu-row:hover,.menu-row.active{background:linear-gradient(90deg,#5d4fc7,#7b42c5);color:#fff}
+  .menu-row .menu-icon{font-family:Arial,Helvetica,sans-serif;font-size:20px;text-align:center;filter:saturate(.85)}
+  .menu-row .arrow{text-align:right;font-size:14px}
+  .menu-divider{height:2px;background:#f4f1f5;border-bottom:1px solid #8d858f;margin:6px 16px}
+  .menu-row.utility{height:45px}
+  .programs-submenu{
+    position:absolute;left:100%;top:78px;width:318px;background:#c8c4ca;
+    border:2px solid #f7f4f8;border-right-color:#55505a;border-bottom-color:#55505a;
+    box-shadow:5px 5px 0 rgba(24,12,32,.18);display:none;
+  }
+  .programs-submenu.open{display:block}
+  .programs-submenu .submenu-back{height:52px;border-bottom:2px solid #f3eff4}
+  .programs-submenu .menu-row{height:47px;font-size:18px}
+  .programs-submenu .menu-row:hover{background:linear-gradient(90deg,#5d4fc7,#7b42c5);color:#fff}
+
+  .startup{
+    position:fixed;inset:0;z-index:2000;background:linear-gradient(145deg,#261340,#5b2b74 58%,#8c3f7d);color:#fff7ff;display:grid;place-items:center;transition:opacity .35s ease,visibility .35s ease
+  }
+  .startup.hide{opacity:0;visibility:hidden}
+  .boot{text-align:center;font-family:monospace}
+  .boot .computer{font-size:40px;margin-bottom:16px}
+  .boot h1{font:700 18px/1.2 Arial,Helvetica,sans-serif;margin:0 0 6px}
+  .boot p{font:11px/1.5 monospace;margin:2px 0;color:#c8c8c1}
+  .loader{width:150px;height:8px;border:1px solid #f4f3ec;margin:14px auto 0;padding:1px}
+  .loader span{display:block;height:100%;width:0;background:#f4f3ec;animation:load 1.05s ease forwards}
+  @keyframes load{to{width:100%}}
+
+  @media (max-width:760px){
+    .signature{display:none}
+    .icon-grid{left:12px;top:18px;grid-template-columns:repeat(3,82px);column-gap:8px;row-gap:17px}
+    .desk-icon{width:82px;min-height:80px}.icon-label{font-size:10px;max-width:82px}.glyph{transform:scale(.9)}
+    .window{width:94vw;height:72vh;left:3vw!important;top:8vh!important;transform:none!important}
+    .project-row{grid-template-columns:1fr}.project-row>div{border-right:0;border-bottom:1px solid var(--line)}.project-row>div:last-child{border-bottom:0}.project-row.header{display:none}
+    .case-grid,.two-col{grid-template-columns:1fr}.case-wide{grid-column:auto}
+    .tasks{display:none}.clock{margin-left:auto}.taskbar{height:42px}.start-menu{bottom:42px}
+  }
+</style>
+</head>
+<body>
+<div class="startup" id="startup" aria-hidden="true">
+  <div class="boot">
+    <div class="computer">▣</div>
+    <h1>Malcolm's Website</h1>
+    <p>Version 2.2</p>
+    <p>Starting up...</p>
+    <div class="loader"><span></span></div>
+  </div>
+</div>
+
+<main class="desktop" id="desktop">
+  <div class="signature">
+    <div class="name">Malcolm T. Gomez</div>
+    <div class="role">Strategy · Partnerships · Innovation</div>
+  </div>
+
+  <section class="icon-grid" aria-label="Desktop files and applications">
+    <button class="desk-icon" data-open="about"><span class="glyph" aria-hidden="true"><svg viewBox="0 0 64 58"><path class="paper stroke" d="M15 4h29l8 8v40H15z"/><path class="cream stroke" d="M44 4v9h8"/><circle class="blue stroke" cx="29" cy="23" r="7"/><path class="thin" fill="none" d="M19 42c2-8 7-11 10-11s8 3 10 11"/><path class="thin" d="M40 20h7M40 25h7M40 30h7"/></svg></span><span class="icon-label">About Me.txt</span></button>
+    <button class="desk-icon" data-open="now"><span class="glyph" aria-hidden="true"><svg viewBox="0 0 64 58"><rect class="paper stroke" x="13" y="8" width="38" height="44" rx="1"/><path class="red stroke" d="M13 8h38v9H13z"/><circle class="paper thin" cx="32" cy="31" r="10"/><path class="thin" fill="none" d="M32 24v8l6 3"/><path class="thin" d="M20 47h24"/></svg></span><span class="icon-label">Now.txt</span></button>
+    <button class="desk-icon" data-open="projects"><span class="glyph" aria-hidden="true"><svg viewBox="0 0 64 58"><path class="yellow stroke" d="M6 19h18l5-7h29v36H6z"/><path class="cream stroke" d="M6 19h52v31H6z"/><rect class="black stroke" x="17" y="24" width="30" height="19" rx="1"/><rect class="screen thin" x="21" y="28" width="22" height="11"/><path class="thin" d="M25 33h14M32 28v11"/></svg></span><span class="icon-label">Projects.app</span></button>
+    <button class="desk-icon" data-open="playbook"><span class="glyph" aria-hidden="true"><svg viewBox="0 0 64 58"><path class="green stroke" d="M11 8h31c5 0 9 4 9 9v33H20c-5 0-9-4-9-9z"/><path class="paper stroke" d="M18 12h27v33H20c-3 0-5-2-5-5V15c0-2 1-3 3-3z"/><path class="red stroke" d="M19 12v33"/><path class="thin" d="M25 22h14M25 28h14M25 34h10"/><text x="28" y="18" font-size="6">PB</text></svg></span><span class="icon-label">Playbook</span></button>
+    <button class="desk-icon" data-open="film"><span class="glyph" aria-hidden="true"><svg viewBox="0 0 64 58"><rect class="black stroke" x="10" y="18" width="44" height="31" rx="1"/><path class="paper stroke" d="M9 10h45v11H9z"/><path class="thin" d="M15 10l6 11M28 10l6 11M41 10l6 11"/><circle class="paper thin" cx="32" cy="34" r="8"/><path class="red stroke" d="M30 29l8 5-8 5z"/></svg></span><span class="icon-label">Film Room</span></button>
+    <button class="desk-icon" data-open="archive"><span class="glyph" aria-hidden="true"><svg viewBox="0 0 64 58"><rect class="cream stroke" x="8" y="18" width="48" height="31" rx="1"/><path class="orange stroke" d="M6 12h52v11H6z"/><rect class="paper thin" x="20" y="27" width="24" height="11"/><path class="thin" d="M25 32h14"/><path class="thin" d="M28 44h8"/></svg></span><span class="icon-label">Archive</span></button>
+    <button class="desk-icon" data-open="resume"><span class="glyph" aria-hidden="true"><svg viewBox="0 0 64 58"><path class="paper stroke" d="M14 4h29l9 9v39H14z"/><path class="red stroke" d="M43 4v10h9"/><rect class="red stroke" x="18" y="21" width="29" height="12"/><text x="23" y="30" font-size="9" fill="#fff" style="fill:#fff">PDF</text><path class="thin" d="M20 40h25M20 45h19"/></svg></span><span class="icon-label">Resume.pdf</span></button>
+    <button class="desk-icon" data-open="contact"><span class="glyph" aria-hidden="true"><svg viewBox="0 0 64 58"><rect class="paper stroke" x="7" y="15" width="50" height="33" rx="1"/><path class="blue stroke" d="M8 17l24 19 24-19"/><path class="thin" fill="none" d="M8 46l18-16M56 46L38 30"/><rect class="red stroke" x="43" y="20" width="8" height="7"/><path class="thin" d="M12 22h11"/></svg></span><span class="icon-label">Contact.txt</span></button>
+  </section>
+
+
+
+  <section class="window" id="about" data-title="About Me.txt">
+    <div class="titlebar"><div class="titlebar-title">About Me.txt</div><div class="win-controls"><button data-minimize>_</button><button data-close>×</button></div></div>
+    <div class="window-body">
+      <div class="two-col">
+        <div>
+          <div class="tagline">Malcolm T. Gomez / DFW</div>
+          <h1>Strategy-minded. Story-driven.</h1>
+          <p class="lede">I work across sports, entertainment, partnerships and innovation. I like messy business questions, ambitious live experiences, emerging technology and the work of turning all of that into a clearer story and a stronger strategy.</p>
+          <div class="rule"></div>
+          <p>I came into this chapter with a background in talent and recruiting, then moved deeper into sports business, live events, technology, sponsorship and film. I tend to look at a problem from both sides: what makes the business work, and what makes people care.</p>
+        </div>
+        <div>
+          <h2>Current lanes</h2>
+          <div class="mini-list">
+            <div>Sports & entertainment strategy</div>
+            <div>Brand partnerships</div>
+            <div>Fan & live-event experience</div>
+            <div>Sports technology / AI</div>
+            <div>Film & visual storytelling</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="window" id="now" data-title="Now.txt">
+    <div class="titlebar"><div class="titlebar-title">Now.txt</div><div class="win-controls"><button data-minimize>_</button><button data-close>×</button></div></div>
+    <div class="window-body">
+      <div class="tagline">September 2026</div>
+      <h1>What I'm working on now.</h1>
+      <div class="rule"></div>
+      <div class="file-note">FINISHING
+MBA — Sport Entertainment Management
+
+BUILDING
+A public body of work across strategy, partnerships and innovation
+
+WORKING ON
+Sports technology / market-entry work
+Brand partnership development
+Live-event strategy
+Film and creative projects
+
+LOOKING TOWARD
+Strategy, innovation and emerging-technology roles in sports + entertainment</div>
+    </div>
+  </section>
+
+  <section class="window" id="projects" data-title="Projects.app">
+    <div class="titlebar"><div class="titlebar-title">Projects.app</div><div class="win-controls"><button data-minimize>_</button><button data-close>×</button></div></div>
+    <div class="window-body" id="projectsBody">
+      <div class="tagline">Selected Work</div>
+      <h1>Projects, not assignments.</h1>
+      <p class="lede">A working archive of strategy, partnerships, innovation and experience-design work. Open a file to see the problem, my role, the approach and the takeaway.</p>
+      <div class="project-table" id="projectTable">
+        <div class="project-row header"><div>Project</div><div>Type</div><div>Year</div></div>
+        <div class="project-row" data-case="arlington"><div><b>Grand Prix of Arlington</b></div><div>Brand strategy / fan growth</div><div>2026</div></div>
+        <div class="project-row" data-case="bcaster"><div><b>BCaster</b></div><div>Market entry / competitive strategy</div><div>2026</div></div>
+        <div class="project-row" data-case="pga"><div><b>2027 PGA Championship</b></div><div>Marketing / event experience</div><div>2025</div></div>
+        <div class="project-row" data-case="autoflow"><div><b>Dallas AI — AutoFlow</b></div><div>AI product / prototype</div><div>2026</div></div>
+        <div class="project-row" data-case="wcis"><div><b>World Cup Innovation Summit</b></div><div>Event / innovation ecosystem</div><div>2026</div></div>
+        <div class="project-row" data-case="dtc"><div><b>Don't Tell Comedy</b></div><div>Brand partnerships</div><div>2026</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="window" id="playbook" data-title="Playbook">
+    <div class="titlebar"><div class="titlebar-title">Playbook</div><div class="win-controls"><button data-minimize>_</button><button data-close>×</button></div></div>
+    <div class="window-body">
+      <div class="tagline">Ideas / Frameworks / Notes</div>
+      <h1>How I think.</h1>
+      <p class="lede">Short-form thinking that sits between strategy memo, field note and unfinished argument.</p>
+      <div class="project-table">
+        <div class="project-row"><div><b>Why IndyCar Has an F1 Problem</b></div><div>Positioning / cultural relevance</div><div>Draft</div></div>
+        <div class="project-row"><div><b>The Future of Sponsorship Isn't More Signage</b></div><div>Partnership strategy</div><div>Note</div></div>
+        <div class="project-row"><div><b>Fans as Distribution</b></div><div>UGC / first-party data / reach</div><div>Note</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="window" id="film" data-title="Film Room">
+    <div class="titlebar"><div class="titlebar-title">Film Room</div><div class="win-controls"><button data-minimize>_</button><button data-close>×</button></div></div>
+    <div class="window-body">
+      <div class="tagline">Film / Story / Directing</div>
+      <h1>The other operating system.</h1>
+      <p class="lede">Film is where the strategy brain gives way to observation, behavior, rhythm and image.</p>
+      <h2>Story framework</h2>
+      <p class="file-note">01 Opening behavior
+02 World rule
+03 Character lie
+04 Small disruption
+05 Request
+06 Avoidance
+07 Social web
+08 Midpoint reframe
+09 Pressure chamber
+10 Exposed truth
+11 Choice
+12 Aftermath image</p>
+      <h2>Visual instincts</h2>
+      <p>Small casts. Rehearsal-heavy performances. Naturalistic chores. Long takes. Minimal cutting. Grain. Rituals. Rooms that feel lived in.</p>
+    </div>
+  </section>
+
+  <section class="window" id="archive" data-title="Archive">
+    <div class="titlebar"><div class="titlebar-title">Archive</div><div class="win-controls"><button data-minimize>_</button><button data-close>×</button></div></div>
+    <div class="window-body">
+      <div class="tagline">Archive</div>
+      <h1>Everything doesn't need to be featured.</h1>
+      <p class="lede">This is where secondary projects, earlier work, experiments and concepts can live without crowding the main portfolio.</p>
+      <div class="project-table">
+        <div class="project-row"><div><b>UPSL Corporate Sponsorship</b></div><div>Partnership strategy</div><div>2026</div></div>
+        <div class="project-row"><div><b>FC Dallas — Colombia</b></div><div>Global strategy</div><div>2026</div></div>
+        <div class="project-row"><div><b>Earn Your Legacy</b></div><div>NIL / AI concept</div><div>2026</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="window" id="resume" data-title="Resume.pdf">
+    <div class="titlebar"><div class="titlebar-title">Resume.pdf</div><div class="win-controls"><button data-minimize>_</button><button data-close>×</button></div></div>
+    <div class="window-body">
+      <div class="tagline">Resume</div>
+      <h1>Professional snapshot.</h1>
+      <p class="lede">The final site can open or download the actual PDF here. For this prototype, the file remains intentionally unbundled.</p>
+      <div class="rule"></div>
+      <p><b>MBA SENM Candidate — Expected December 2026</b><br><span class="muted">Branding · Partnerships · Strategy</span></p>
+      <p>Current work spans sports innovation, startup/client support, brand partnerships and strategic consulting projects.</p>
+    </div>
+  </section>
+
+  <section class="window" id="contact" data-title="Contact.txt">
+    <div class="titlebar"><div class="titlebar-title">Contact.txt</div><div class="win-controls"><button data-minimize>_</button><button data-close>×</button></div></div>
+    <div class="window-body">
+      <div class="tagline">Contact</div>
+      <h1>Open to the right conversations.</h1>
+      <p class="lede">In the public build, this file can hold the email and LinkedIn details you want visible. I left them out of the prototype so we don't publish anything by accident.</p>
+    </div>
+  </section>
+
+  <div class="start-menu" id="startMenu">
+    <div class="menu-brand"><span class="brand-monitor"></span><div>Malcolm's<br>Website</div></div>
+    <button class="menu-row programs-row" id="programsMenuButton"><span class="menu-icon">📁</span><span>Programs</span><span class="arrow">▶</span></button>
+    <div class="menu-divider"></div>
+    <button class="menu-row utility" data-open="about"><span class="menu-icon">?</span><span>Welcome</span><span></span></button>
+    <button class="menu-row utility" data-open="about"><span class="menu-icon">ℹ</span><span>About</span><span></span></button>
+    <button class="menu-row utility" id="restartButton"><span class="menu-icon">↻</span><span>Restart</span><span></span></button>
+    <div class="menu-divider"></div>
+    <button class="menu-row utility" id="shutdownButton"><span class="menu-icon">⏻</span><span>Shut Down</span><span></span></button>
+
+    <div class="programs-submenu" id="programsSubmenu">
+      <button class="menu-row submenu-back" id="submenuBack"><span class="menu-icon">←</span><span>Back</span><span></span></button>
+      <button class="menu-row" data-open="about"><span class="menu-icon">📄</span><span>About Me</span><span></span></button>
+      <button class="menu-row" data-open="projects"><span class="menu-icon">💻</span><span>Selected Work</span><span></span></button>
+      <button class="menu-row" data-open="playbook"><span class="menu-icon">📓</span><span>Playbook</span><span></span></button>
+      <button class="menu-row" data-open="film"><span class="menu-icon">🎬</span><span>Film Room</span><span></span></button>
+      <button class="menu-row" data-open="now"><span class="menu-icon">◷</span><span>Now</span><span></span></button>
+      <button class="menu-row" data-open="archive"><span class="menu-icon">🗃</span><span>Archive</span><span></span></button>
+      <button class="menu-row" data-open="resume"><span class="menu-icon">📄</span><span>Resume</span><span></span></button>
+      <button class="menu-row" data-open="contact"><span class="menu-icon">✉</span><span>Contact</span><span></span></button>
+    </div>
+  </div>
+
+  <footer class="taskbar">
+    <button class="start" id="startButton" aria-expanded="false">Start</button>
+    <div class="tasks" id="tasks"></div>
+    <div class="clock" id="clock">--:--<br>---</div>
+  </footer>
+</main>
+
+<script>
+(() => {
+  const startup = document.getElementById('startup');
+  const desktop = document.getElementById('desktop');
+  const taskArea = document.getElementById('tasks');
+  const startButton = document.getElementById('startButton');
+  const startMenu = document.getElementById('startMenu');
+  const programsMenuButton = document.getElementById('programsMenuButton');
+  const programsSubmenu = document.getElementById('programsSubmenu');
+  const submenuBack = document.getElementById('submenuBack');
+  const restartButton = document.getElementById('restartButton');
+  const shutdownButton = document.getElementById('shutdownButton');
+  const projectsBody = document.getElementById('projectsBody');
+  const clock = document.getElementById('clock');
+  let topZ = 30;
+
+  const cases = {
+    arlington:{title:'Grand Prix of Arlington',subtitle:'Brand Strategy + Fan Engagement',role:'Business consulting / strategy',focus:'Positioning · local relevance · fan growth · partnerships',year:'2026',challenge:'How can a new IndyCar event become a must-attend March ritual in a crowded DFW sports market—not simply another race on the calendar?',approach:'Competitive event analysis, local positioning, fan-experience concepts, cultural ritual development and partnership thinking.',insight:'The opportunity is to sell a Dallas event identity first and motorsport second: something with artifacts, rituals and spectacle that still matters to people who are not already IndyCar fans.'},
+    bcaster:{title:'BCaster',subtitle:'U.S. Market Entry + Competitive Strategy',role:'MBA consulting',focus:'GTM · sports tech · competitive differentiation',year:'2026',challenge:'How should BCaster explain its value in the U.S. against better-known sports-content and fan-engagement platforms?',approach:'Competitive scorecard, feature and buyer-language analysis, sponsor-value framing, fan usability and market-entry work.',insight:'The strongest story is not content collection alone; it is how access, content rights, first-party data and sponsor attribution can work together.'},
+    pga:{title:'2027 PGA Championship',subtitle:'Fan Growth + Event Experience',role:'Marketing strategy',focus:'Audience · accessibility · venue experience · digital engagement',year:'2025',challenge:'Identify practical opportunities to broaden fan engagement and improve the championship experience around PGA Frisco.',approach:'Audience segmentation, market analysis, venue/logistics research, accessibility thinking and digital/fan-experience recommendations.',insight:'Growth is not one big activation. It comes from reducing friction while giving casual fans more reasons to participate before, during and around the golf.'},
+    autoflow:{title:'Dallas AI — AutoFlow',subtitle:'AI Product Concept + Prototype',role:'Product / strategy',focus:'AI · workflow · prototype',year:'2026',challenge:'Turn a real workflow problem into an AI-enabled concept that could be demonstrated, critiqued and improved.',approach:'Problem framing, user journey, product concepting, workflow design, prototype development and team presentation.',insight:'The strongest AI concepts remove repetitive friction. The technology should disappear behind the usefulness.'},
+    wcis:{title:'World Cup Innovation Summit',subtitle:'Event Strategy + Innovation Ecosystem',role:'Project / operations',focus:'Sports innovation · executive audience · live events',year:'2026',challenge:'Create a high-value convening point for sports, technology and business leaders around the 2026 World Cup ecosystem.',approach:'Program development, stakeholder coordination, executive-audience planning, startup/member integration and live-event operations.',insight:'The event works best when it behaves less like a conference and more like a curated business network with a clear reason for each person to be in the room.'},
+    dtc:{title:"Don't Tell Comedy",subtitle:'Partnership Development + Brand Prospecting',role:'Brand partnerships',focus:'CPG · RTD · Texas markets · outreach strategy',year:'2026',challenge:'Build a qualified sponsorship pipeline around a distinctive live-comedy audience and a national digital platform.',approach:'Brand sourcing, market-fit analysis, retail relevance, decision-maker research and sponsorship narrative development.',insight:'The proposition gets stronger when intimate product trial and local retail support are connected to a much larger digital audience.'}
+  };
+
+  const projectListMarkup = projectsBody.innerHTML;
+
+  function boot(){
+    setTimeout(() => startup.classList.add('hide'), 1150);
+  }
+
+  function updateClock(){
+    const d = new Date();
+    const time = d.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});
+    const date = d.toLocaleDateString([], {month:'short',day:'numeric'}).toUpperCase();
+    clock.innerHTML = `${time}<br>${date}`;
+  }
+
+  function bringFront(win){
+    topZ += 1;
+    win.style.zIndex = topZ;
+    document.querySelectorAll('.task-btn').forEach(b=>b.classList.toggle('active', b.dataset.task === win.id));
+  }
+
+  function ensureTask(win){
+    let btn = taskArea.querySelector(`[data-task="${win.id}"]`);
+    if(!btn){
+      btn = document.createElement('button');
+      btn.className='task-btn';
+      btn.dataset.task=win.id;
+      btn.textContent=win.dataset.title || win.id;
+      btn.addEventListener('click',()=>{
+        if(win.classList.contains('minimized')){
+          win.classList.remove('minimized');
+          win.classList.add('open');
+        }
+        bringFront(win);
+      });
+      taskArea.appendChild(btn);
+    }
+  }
+
+  function openWindow(id){
+    const win = document.getElementById(id);
+    if(!win) return;
+    win.classList.add('open');
+    win.classList.remove('minimized');
+    ensureTask(win);
+    bringFront(win);
+    startMenu.classList.remove('open');
+    programsSubmenu.classList.remove('open');
+    programsMenuButton.classList.remove('active');
+    startButton.setAttribute('aria-expanded','false');
+  }
+
+  function closeWindow(win){
+    win.classList.remove('open','minimized');
+    const btn=taskArea.querySelector(`[data-task="${win.id}"]`);
+    if(btn) btn.remove();
+  }
+
+  document.querySelectorAll('.desk-icon[data-open]').forEach(el=>el.addEventListener('click',()=>openWindow(el.dataset.open)));
+  document.querySelectorAll('.start-menu [data-open]').forEach(el=>el.addEventListener('click',()=>openWindow(el.dataset.open)));
+  document.querySelectorAll('.desk-icon').forEach(el=>el.addEventListener('click',()=>{
+    document.querySelectorAll('.desk-icon').forEach(i=>i.removeAttribute('data-selected'));
+    el.setAttribute('data-selected','true');
+  }));
+
+  document.querySelectorAll('.window').forEach(win=>{
+    win.querySelector('[data-close]').addEventListener('click',()=>closeWindow(win));
+    win.querySelector('[data-minimize]').addEventListener('click',()=>{
+      win.classList.add('minimized');
+      const btn=taskArea.querySelector(`[data-task="${win.id}"]`); if(btn) btn.classList.remove('active');
+    });
+    win.addEventListener('mousedown',()=>bringFront(win));
+
+    const head=win.querySelector('.titlebar');
+    let dragging=false, dx=0, dy=0;
+    head.addEventListener('mousedown',e=>{
+      if(e.target.closest('button')) return;
+      dragging=true;
+      const r=win.getBoundingClientRect();
+      dx=e.clientX-r.left; dy=e.clientY-r.top;
+      win.style.transform='none';
+      bringFront(win);
+    });
+    window.addEventListener('mousemove',e=>{
+      if(!dragging) return;
+      const maxX=window.innerWidth-win.offsetWidth;
+      const maxY=window.innerHeight-44-win.offsetHeight;
+      win.style.left=Math.max(0,Math.min(e.clientX-dx,maxX))+'px';
+      win.style.top=Math.max(0,Math.min(e.clientY-dy,maxY))+'px';
+    });
+    window.addEventListener('mouseup',()=>dragging=false);
+  });
+
+  function setPrograms(open){
+    programsSubmenu.classList.toggle('open',open);
+    programsMenuButton.classList.toggle('active',open);
+  }
+
+  startButton.addEventListener('click',()=>{
+    const willOpen=!startMenu.classList.contains('open');
+    startMenu.classList.toggle('open',willOpen);
+    startButton.setAttribute('aria-expanded',String(willOpen));
+    if(!willOpen) setPrograms(false);
+  });
+  programsMenuButton.addEventListener('mouseenter',()=>setPrograms(true));
+  programsMenuButton.addEventListener('click',e=>{e.stopPropagation();setPrograms(!programsSubmenu.classList.contains('open'));});
+  programsSubmenu.addEventListener('mouseenter',()=>setPrograms(true));
+  submenuBack.addEventListener('click',e=>{e.stopPropagation();setPrograms(false);});
+
+  restartButton.addEventListener('click',()=>{
+    document.querySelectorAll('.window.open').forEach(closeWindow);
+    startMenu.classList.remove('open');setPrograms(false);startButton.setAttribute('aria-expanded','false');
+    startup.classList.remove('hide');
+    setTimeout(()=>startup.classList.add('hide'),950);
+  });
+  shutdownButton.addEventListener('click',()=>{
+    document.querySelectorAll('.window.open').forEach(closeWindow);
+    startMenu.classList.remove('open');setPrograms(false);startButton.setAttribute('aria-expanded','false');
+    startup.classList.remove('hide');
+    const bootTitle=startup.querySelector('h1'); const bootCopy=startup.querySelector('p');
+    const oldTitle=bootTitle.textContent, oldCopy=bootCopy.textContent;
+    bootTitle.textContent='Malcolm OS is resting.';bootCopy.textContent='Click anywhere to wake.';
+    startup.addEventListener('click',function wake(){startup.classList.add('hide');bootTitle.textContent=oldTitle;bootCopy.textContent=oldCopy;startup.removeEventListener('click',wake);},{once:false});
+  });
+
+  desktop.addEventListener('click',e=>{
+    if(!e.target.closest('#startButton') && !e.target.closest('#startMenu')){
+      startMenu.classList.remove('open');setPrograms(false);startButton.setAttribute('aria-expanded','false');
+    }
+  });
+
+  function bindProjectRows(){
+    projectsBody.querySelectorAll('[data-case]').forEach(row=>row.addEventListener('click',()=>{
+      const c=cases[row.dataset.case];
+      projectsBody.innerHTML=`
+        <button class="back-link" id="backToProjects">← Selected Work</button>
+        <div class="case-top">
+          <div><div class="tagline">Case Study</div><h1>${c.title}</h1><p class="lede">${c.subtitle}</p></div>
+          <div class="case-id">${c.year}</div>
+        </div>
+        <div class="case-grid">
+          <div class="case-box"><b>Role</b><p>${c.role}</p></div>
+          <div class="case-box"><b>Focus</b><p>${c.focus}</p></div>
+          <div class="case-box case-wide"><b>The challenge</b><p>${c.challenge}</p></div>
+          <div class="case-box"><b>Approach</b><p>${c.approach}</p></div>
+          <div class="case-box"><b>Key insight</b><p>${c.insight}</p></div>
+        </div>
+        <h2>Selected work</h2>
+        <p class="muted">This is where 3–5 sanitized slides, a chart, a prototype frame or a visual recommendation will live in the polished build.</p>`;
+      document.getElementById('backToProjects').addEventListener('click',()=>{
+        projectsBody.innerHTML=projectListMarkup; bindProjectRows();
+      });
+    }));
+  }
+  bindProjectRows();
+
+
+
+  updateClock(); setInterval(updateClock,30000); boot();
+})();
+</script>
+</body>
+</html>
