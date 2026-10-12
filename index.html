@@ -1077,10 +1077,19 @@ across entertainment, media, consumer, sports and experience-driven businesses.<
   function bindProjectRows(){
     projectsBody.querySelectorAll('[data-case]').forEach(row=>row.addEventListener('click',()=>{
       const c=cases[row.dataset.case];
+
+      const selectedWork = row.dataset.case === 'autoflow'
+        ? '<p class="muted">Explore the project deliverable below.</p><p><a href="DallasAIAutoflow.pdf" target="_blank" rel="noopener">View Dallas AI Autoflow PDF ↗</a></p>'
+        : '<p class="muted">This is where 3–5 sanitized slides, a chart, a prototype frame or a visual recommendation will live in the polished build.</p>';
+
       projectsBody.innerHTML=`
         <button class="back-link" id="backToProjects">← Selected Work</button>
         <div class="case-top">
-          <div><div class="tagline">Case Study</div><h1>${c.title}</h1><p class="lede">${c.subtitle}</p></div>
+          <div>
+            <div class="tagline">Case Study</div>
+            <h1>${c.title}</h1>
+            <p class="lede">${c.subtitle}</p>
+          </div>
           <div class="case-id">${c.year}</div>
         </div>
         <div class="case-grid">
@@ -1090,26 +1099,19 @@ across entertainment, media, consumer, sports and experience-driven businesses.<
           <div class="case-box"><b>Approach</b><p>${c.approach}</p></div>
           <div class="case-box"><b>Key insight</b><p>${c.insight}</p></div>
         </div>
-        
-        
-<h2>Selected work</h2>
-${c.title === 'Dallas AI Autoflow' ? `
-  <p class="muted">Explore the project deliverable below.</p>
-  <p>
-    <a href="DallasAIAutoflow.pdf" target="_blank" rel="noopener">
-      View Dallas AI Autoflow PDF ↗
-    </a>
-  </p>
-` : `
-  <p class="muted">This is where 3–5 sanitized slides, a chart, a prototype frame or a visual recommendation will live in the polished build.</p>
-`}
-;
+        <h2>Selected work</h2>
+        ${selectedWork}
+      `;
+
       document.getElementById('backToProjects').addEventListener('click',()=>{
-        projectsBody.innerHTML=projectListMarkup; bindProjectRows();
+        projectsBody.innerHTML=projectListMarkup;
+        bindProjectRows();
       });
     }));
   }
+
   bindProjectRows();
+
 
 
 
