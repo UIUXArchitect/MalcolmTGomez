@@ -1105,7 +1105,25 @@
   challenge: 'Grow sponsorship revenue while managing relationships with sponsors and community partners.',
   approach: 'Managed the sponsorship portfolio and client relationships, identifying opportunities to expand existing partnerships and increase sponsor investment.',
   insight: 'Strong sponsorship relationships can create opportunities to grow existing accounts, increasing partnership value while building on established trust.'}  };
+// PROJECT PDF FILES
 
+cases.pga.pdfFile =
+  'SEM5150-PGA Group 4 [O & FE] - Clark, Brandenburg, T. Gomez.pdf';
+
+cases.pga.pdfLabel =
+  'Fan Engagement & Operations Research (19 Slides)';
+
+cases.wcis.pdfFile =
+  'World_Cup_Innovation_Summit_Program.pdf';
+
+cases.wcis.pdfLabel =
+  'Official World Cup Innovation Summit Program';
+
+cases.dbff.pdfFile =
+  '2027 DBFF sponsor booklet (3).pdf';
+
+cases.dbff.pdfLabel =
+  '2027 Denton Black Film Festival Sponsorship Booklet';  
   const projectListMarkup = projectsBody.innerHTML;
 
   function boot(){
@@ -1239,9 +1257,24 @@
     projectsBody.querySelectorAll('[data-case]').forEach(row=>row.addEventListener('click',()=>{
       const c=cases[row.dataset.case];
 
-      const selectedWork = row.dataset.case === 'autoflow'
-        ? '<p class="muted">Explore the project deliverable below.</p><p><a href="DallasAIAutoflow.pdf" target="_blank" rel="noopener">View Dallas AI Autoflow PDF ↗</a></p>'
-        : '<p class="muted">This is where 3–5 sanitized slides, a chart, a prototype frame or a visual recommendation will live in the polished build.</p>';
+     
+const pdfUrl = c.pdfFile
+  ? encodeURIComponent(c.pdfFile)
+  : row.dataset.case === 'autoflow'
+    ? 'DallasAIAutoflow.pdf'
+    : null;
+
+const selectedWork = pdfUrl
+  ? `<p>
+       <a href="${pdfUrl}"
+          target="_blank"
+          rel="noopener noreferrer">
+         ${c.pdfLabel || 'View Project PDF'} ↗
+       </a>
+     </p>`
+  : `<p class="muted">
+       Additional project materials coming soon.
+     </p>`;
 
       projectsBody.innerHTML=`
         <button class="back-link" id="backToProjects">← Selected Work</button>
