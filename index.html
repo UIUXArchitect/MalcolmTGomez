@@ -269,8 +269,167 @@
   .loader{width:150px;height:8px;border:1px solid #f4f3ec;margin:14px auto 0;padding:1px}
   .loader span{display:block;height:100%;width:0;background:#f4f3ec;animation:load 1.05s ease forwards}
   @keyframes load{to{width:100%}}
+/* =========================================
+   WELCOME / GETTING STARTED
+   ========================================= */
 
-  @media (max-width:760px){
+#welcome{
+  width:min(760px,88vw);
+  height:auto;
+  max-height:82vh;
+  border:3px solid #f5effa;
+  outline:2px solid var(--line);
+  box-shadow:12px 12px 0 rgba(26,10,38,.28);
+}
+
+#welcome .titlebar{
+  background:linear-gradient(
+    90deg,
+    #3f278f,
+    #6f45d6 62%,
+    #9a3f8e
+  );
+  color:#fff;
+  border-bottom:3px solid #6c5b75;
+}
+
+#welcome .win-controls button{
+  border-left:2px solid rgba(255,255,255,.55);
+  color:#fff;
+}
+
+#welcome .win-controls button:hover{
+  background:#fff;
+  color:var(--ink);
+}
+
+#welcome .window-body{
+  padding:28px 34px 24px;
+  background:#fff;
+}
+
+#welcome .welcome-kicker{
+  font:700 11px/1.3 "Courier New",monospace;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  color:var(--accent);
+}
+
+#welcome h1{
+  font:700 clamp(28px,4vw,42px)/1.05 "Courier New",monospace;
+  color:#2e248b;
+  margin:12px 0 16px;
+  letter-spacing:-.03em;
+}
+
+#welcome .welcome-intro{
+  font:18px/1.55 "Courier New",monospace;
+  max-width:650px;
+  margin:0 0 20px;
+  color:#1d1723;
+}
+
+#welcome .welcome-list{
+  margin:0;
+  padding:0;
+  list-style:none;
+  border-top:1px solid #cfc7d4;
+}
+
+#welcome .welcome-list li{
+  display:grid;
+  grid-template-columns:125px 1fr;
+  gap:14px;
+  padding:10px 0;
+  border-bottom:1px solid #ded6e4;
+  font:14px/1.45 "Courier New",monospace;
+}
+
+#welcome .welcome-list b{
+  font-weight:700;
+  color:#251530;
+}
+
+#welcome .welcome-actions{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  flex-wrap:wrap;
+  margin-top:20px;
+}
+
+#welcome .welcome-primary{
+  border:2px solid #4b4150;
+  border-top-color:#fff;
+  border-left-color:#fff;
+  background:#d5d0d8;
+  box-shadow:inset -2px -2px 0 #847989;
+  padding:9px 18px;
+  font:700 14px/1 "Courier New",monospace;
+  cursor:pointer;
+}
+
+#welcome .welcome-primary:hover{
+  background:#e9e3ed;
+}
+
+#welcome .welcome-check{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font:12px/1.4 "Courier New",monospace;
+  color:#594a62;
+}
+
+#welcome .welcome-check input{
+  width:16px;
+  height:16px;
+  accent-color:var(--accent);
+}
+
+#welcome .welcome-shortcuts{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:14px;
+}
+
+#welcome .welcome-shortcuts button{
+  border:0;
+  border-bottom:1px solid currentColor;
+  background:transparent;
+  padding:2px 0;
+  color:var(--accent);
+  font:700 11px/1.35 "Courier New",monospace;
+  cursor:pointer;
+}
+
+#welcome .welcome-shortcuts button:hover{
+  color:var(--accent-2);
+}
+  @media (max-width:760px){#welcome{
+  width:94vw;
+  max-height:82vh;
+  left:3vw!important;
+  top:7vh!important;
+  bottom:auto!important;
+  transform:none!important;
+}
+
+#welcome .window-body{
+  padding:20px 18px;
+}
+
+#welcome .welcome-intro{
+  font-size:14px;
+}
+
+#welcome .welcome-list li{
+  grid-template-columns:1fr;
+  gap:3px;
+  font-size:12px;
+}
     .signature{display:none}
     .icon-grid{left:12px;top:18px;grid-template-columns:repeat(3,82px);column-gap:8px;row-gap:17px}
     .desk-icon{width:82px;min-height:80px}.icon-label{font-size:10px;max-width:82px}.glyph{transform:scale(.9)}
@@ -366,7 +525,126 @@
 </button>    
   </section>
 
+<section
+  class="window"
+  id="welcome"
+  data-title="Welcome — Getting Started"
+>
+  <div class="titlebar">
+    <div class="titlebar-title">
+      Welcome — Getting Started
+    </div>
 
+    <div class="win-controls">
+      <button data-minimize aria-label="Minimize">_</button>
+      <button data-close aria-label="Close">×</button>
+    </div>
+  </div>
+
+  <div class="window-body">
+
+    <div class="welcome-kicker">
+      Malcolm OS / Start Here
+    </div>
+
+    <h1>
+      Welcome to Malcolm's desktop.
+    </h1>
+
+    <p class="welcome-intro">
+      This isn't a résumé with better typography.
+      It's a working archive of the problems I've worked on,
+      the ideas I'm testing, and the things that shape how I think.
+    </p>
+
+    <ul class="welcome-list">
+
+      <li>
+        <b>Selected Work</b>
+        <span>
+          Strategy, partnerships, growth and innovation projects.
+        </span>
+      </li>
+
+      <li>
+        <b>Now</b>
+        <span>
+          Where my time and energy are going right now.
+        </span>
+      </li>
+
+      <li>
+        <b>Playbook</b>
+        <span>
+          Things I believe enough to build around.
+        </span>
+      </li>
+
+      <li>
+        <b>Archive</b>
+        <span>
+          Smaller projects, experiments and things worth keeping.
+        </span>
+      </li>
+
+      <li>
+        <b>Film Room + Library</b>
+        <span>
+          Some of the references that shape how I see the work.
+        </span>
+      </li>
+
+    </ul>
+
+    <div
+      class="welcome-shortcuts"
+      aria-label="Quick links"
+    >
+      <button
+        type="button"
+        data-welcome-open="projects"
+      >
+        Open Selected Work
+      </button>
+
+      <button
+        type="button"
+        data-welcome-open="now"
+      >
+        Open Now
+      </button>
+
+      <button
+        type="button"
+        data-welcome-open="playbook"
+      >
+        Open Playbook
+      </button>
+    </div>
+
+    <div class="welcome-actions">
+
+      <label class="welcome-check">
+        <input
+          type="checkbox"
+          id="showWelcomeOnStart"
+          checked
+        >
+        Show this when I start
+      </label>
+
+      <button
+        type="button"
+        class="welcome-primary"
+        id="startExploring"
+      >
+        Start exploring
+      </button>
+
+    </div>
+
+  </div>
+</section>
 
 
 <section class="window" id="about" data-title="About Me.txt">
@@ -496,7 +774,7 @@
 
     <div class="tagline">October 2026</div>
 
-    <h1>What I'm working on now.</h1>
+    <h1>Where my time and energy are going right now.</h1>
 
     <p class="lede">
       I'm in the final stretch of my MBA in Sport Entertainment
@@ -583,7 +861,9 @@
     <div class="window-body" id="projectsBody">
       <div class="tagline">Selected Work</div>
       <h1>Projects.</h1>
-      <p class="lede">A working archive of strategy, partnerships, innovation and experience-design work. Open a file to see the problem, my role, the approach and the takeaway.</p>
+      <p class="lede">Strategy, partnerships, innovation and experience-design work.
+  Open a file to see the problem, my role, the approach
+  and the takeaway..</p>
 <div class="project-table" id="projectTable">
   <div class="project-row header">
     <div>Project</div>
@@ -643,7 +923,7 @@
 
 <section class="window" id="playbook" data-title="How I Think">
   <div class="titlebar">
-    <div class="titlebar-title">How I Think</div>
+    <div class="titlebar-title">Things I believe enough to build around.</div>
 
     <div class="win-controls">
       <button data-minimize>_</button>
@@ -657,9 +937,8 @@
     <h1>How I Think.</h1>
 
     <p class="lede">
-      I'm usually less interested in the industry than the problem.
-      These are a few principles I tend to come back to when I'm trying
-      to understand one.
+      A few principles that keep showing up in the way
+  I approach strategy, partnerships and experience design.
     </p>
 
     <div class="rule"></div>
@@ -724,8 +1003,9 @@
     <div class="titlebar"><div class="titlebar-title">Film Room</div><div class="win-controls"><button data-minimize>_</button><button data-close>×</button></div></div>
     <div class="window-body">
       <div class="tagline">Film / Story / Directing</div>
-      <h1>The other operating system.</h1>
-      <p class="lede">Film is my first love.</p>
+      <h1>Movies that changed the way I see the world.</h1>
+      <p class="lede">Sometimes the useful reference point isn't a business case.
+  Film is my first love.</p>
       <h2>A Few of My Favs (in no particular order)</h2>
       <p class="file-note">01 The Florida Project
 02 4 months, 3 weeks and 2 days
@@ -755,7 +1035,7 @@
   </div>
 
   <div class="window-body">
-    <div class="tagline">Writing / Ideas / Observations</div>
+    <div class="tagline">Things I couldn't stop thinking about.</div>
 
     <h1>Articles</h1>
 
@@ -825,8 +1105,9 @@
     <div class="titlebar"><div class="titlebar-title">Archive</div><div class="win-controls"><button data-minimize>_</button><button data-close>×</button></div></div>
     <div class="window-body">
       <div class="tagline">Archive</div>
-      <h1>Everything that doesnt fit.</h1>
-      <p class="lede">This is where secondary projects, earlier work, experiments and concepts live.</p>
+      <h1>Smaller projects. Experiments. Things worth keeping.</h1>
+      <p class="lede">Work that doesn't need the full case-study treatment
+  to say something useful about how I think or what I've tried.</p>
       <div class="project-table">
         <div class="project-row"><div><b>UPSL Corporate Sponsorship</b></div><div>Partnership strategy</div><div>2026</div></div>
         <div class="project-row"><div><b>FC Dallas — Colombia</b></div><div>Global strategy</div><div>2026</div></div>
@@ -876,7 +1157,7 @@
   </div>
 
   <div class="window-body">
-    <div class="tagline">Books / Essays / Reports / Ideas</div>
+    <div class="tagline">What's been getting into my head lately.</div>
     <h1>Library</h1>
 
     <p class="lede">
@@ -1010,7 +1291,7 @@
     <div class="window-body">
       <div class="tagline">Contact</div>
       
-      <h1>Lets Connect.</h1>
+      <h1>Let's Connect.</h1>
                          
 <a href="mailto:MalcolmTGomez@gmail.com">
   MalcolmTGomez@gmail.com
@@ -1039,7 +1320,7 @@
     <button class="menu-row programs-row" id="programsMenuButton"><span class="menu-icon">📁</span><span>Programs</span><span class="arrow">▶</span></button>
     <div class="menu-divider"></div>
     <button class="menu-row utility" data-open="about"><span class="menu-icon">?</span><span>Welcome</span><span></span></button>
-    <button class="menu-row utility" data-open="about"><span class="menu-icon">ℹ</span><span>About</span><span></span></button>
+    <button class="menu-row utility" data-open="about"><span class="menu-icon">ℹ</span><span>Welcome</span><span></span></button>
     <button class="menu-row utility" id="restartButton"><span class="menu-icon">↻</span><span>Restart</span><span></span></button>
     <div class="menu-divider"></div>
     <button class="menu-row utility" id="shutdownButton"><span class="menu-icon">⏻</span><span>Shut Down</span><span></span></button>
@@ -1078,6 +1359,16 @@
   const shutdownButton = document.getElementById('shutdownButton');
   const projectsBody = document.getElementById('projectsBody');
   const clock = document.getElementById('clock');
+  const welcome = document.getElementById('welcome');
+
+const showWelcomeOnStart =
+  document.getElementById('showWelcomeOnStart');
+
+const startExploring =
+  document.getElementById('startExploring');
+
+const WELCOME_KEY =
+  'malcolmWelcomeDismissedV1';
   let topZ = 30;
 
   const cases = {
@@ -1126,9 +1417,31 @@ cases.dbff.pdfLabel =
   '2027 Denton Black Film Festival Sponsorship Booklet';  
   const projectListMarkup = projectsBody.innerHTML;
 
-  function boot(){
-    setTimeout(() => startup.classList.add('hide'), 1150);
+ function maybeOpenWelcome(){
+
+  const dismissed =
+    localStorage.getItem(WELCOME_KEY) === '1';
+
+  showWelcomeOnStart.checked = !dismissed;
+
+  if(!dismissed){
+    setTimeout(
+      () => openWindow('welcome'),
+      120
+    );
   }
+}
+
+function boot(){
+
+  setTimeout(() => {
+
+    startup.classList.add('hide');
+
+    maybeOpenWelcome();
+
+  }, 1150);
+}
 
   function updateClock(){
     const d = new Date();
@@ -1252,8 +1565,47 @@ cases.dbff.pdfLabel =
       startMenu.classList.remove('open');setPrograms(false);startButton.setAttribute('aria-expanded','false');
     }
   });
+/* =========================================
+   WELCOME WINDOW CONTROLS
+   ========================================= */
 
-  function bindProjectRows(){
+document
+  .querySelectorAll('[data-welcome-open]')
+  .forEach(btn => {
+
+    btn.addEventListener('click', () => {
+
+      closeWindow(welcome);
+
+      openWindow(
+        btn.dataset.welcomeOpen
+      );
+
+    });
+
+  });
+
+
+startExploring.addEventListener('click', () => {
+
+  if(showWelcomeOnStart.checked){
+
+    localStorage.removeItem(
+      WELCOME_KEY
+    );
+
+  }else{
+
+    localStorage.setItem(
+      WELCOME_KEY,
+      '1'
+    );
+
+  }
+
+  closeWindow(welcome);
+
+});  function bindProjectRows(){
     projectsBody.querySelectorAll('[data-case]').forEach(row=>row.addEventListener('click',()=>{
       const c=cases[row.dataset.case];
 
