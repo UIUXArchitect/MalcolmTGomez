@@ -1459,6 +1459,11 @@ cowboysmexico: {
   insight: 'Strong sponsorship relationships can create opportunities to grow existing accounts, increasing partnership value while building on established trust.'}  };
 // PROJECT PDF FILES
 
+cases.dtc.pdfFile =
+  'Dont_Tell_Comedy_Partnership_Deck_Archive_v2.pdf';
+
+cases.dtc.pdfLabel =
+  "View Full Partnership Deck (45 Pages)";
 cases.pga.pdfFile =
   'SEM5150-PGA Group 4 [O & FE] - Clark, Brandenburg, T. Gomez.pdf';
 
@@ -1482,6 +1487,9 @@ cases.cowboysmexico.pdfLabel = 'View Cowboys in Mexico Strategy Presentation';
 
 cases.upsl.pdfFile = 'Corporate Partnerships(2).pdf';
 cases.upsl.pdfLabel = 'View UPSL Corporate Sponsorship Presentation';
+  
+cases.dtc.inlinePdf = true;
+
   const projectListMarkup = projectsBody.innerHTML;
 
  function maybeOpenWelcome(){
@@ -1683,6 +1691,15 @@ const pdfUrl = c.pdfFile
     ? 'DallasAIAutoflow.pdf'
     : null;
 
+const inlineDeck = c.inlinePdf && pdfUrl
+  ? `<iframe
+       src="${pdfUrl}#toolbar=1"
+       title="Don't Tell Comedy Partnership Deck"
+       style="width:100%;height:480px;border:1px solid var(--line);background:#fff;"
+       loading="lazy">
+     </iframe>`
+  : '';
+
 const selectedWork = pdfUrl
   ? `<p>
        <a href="${pdfUrl}"
@@ -1712,8 +1729,11 @@ const selectedWork = pdfUrl
           <div class="case-box"><b>Approach</b><p>${c.approach}</p></div>
           <div class="case-box"><b>Key insight</b><p>${c.insight}</p></div>
         </div>
-        <h2>Selected work</h2>
-        ${selectedWork}
+        
+<h2>Selected work</h2>
+${selectedWork}
+${inlineDeck}
+
       `;
 
       document.getElementById('backToProjects').addEventListener('click',()=>{
