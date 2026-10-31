@@ -224,8 +224,97 @@
   .back-link{border:0;background:transparent;padding:0;margin:0 0 14px;font:700 10px/1 monospace;text-transform:uppercase;cursor:pointer;text-decoration:underline}
 
   .two-col{display:grid;grid-template-columns:1.25fr .75fr;gap:22px}
-  .mini-list{border-top:1px solid var(--line);margin-top:10px}
-  .mini-list div{padding:9px 0;border-bottom:1px solid var(--line);font-size:11px;line-height:1.4}
+  
+.mini-list{
+  border-top:1px solid var(--line);
+  margin-top:10px;
+}
+
+.mini-list div{
+  padding:9px 0;
+  border-bottom:1px solid var(--line);
+  font-size:11px;
+  line-height:1.4;
+}
+
+/* LEADERSHIP ASSESSMENTS */
+
+.leadership-subline{
+  font-size:12px;
+  line-height:1.55;
+  margin:4px 0 10px;
+}
+
+.leadership-lenses{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:13px;
+}
+
+.leadership-lens{
+  border:1px solid var(--line);
+  padding:13px;
+  background:var(--paper);
+}
+
+.lens-index{
+  font:700 9px/1.2 monospace;
+  letter-spacing:.06em;
+  color:var(--accent);
+  margin-bottom:11px;
+  padding-bottom:8px;
+  border-bottom:1px solid #dfd3e8;
+}
+
+.leadership-lens h3{
+  font-size:13px;
+  margin:0 0 7px;
+}
+
+.lens-focus{
+  font:700 11px/1.5 Arial,Helvetica,sans-serif;
+  color:#57328a;
+  margin-bottom:8px;
+}
+
+.leadership-lens p{
+  font-size:11px;
+  line-height:1.5;
+  margin:0;
+}
+
+.leadership-takeaway{
+  font-size:11px;
+  line-height:1.55;
+  border-top:1px solid var(--line);
+  padding:11px 0;
+  margin:14px 0 16px;
+}
+
+@media(max-width:600px){
+  .leadership-lenses{
+    grid-template-columns:1fr;
+  }
+}
+
+/* EXISTING START MENU STYLING */
+
+.start-menu{
+  position:absolute;
+  left:4px;
+  bottom:46px;
+  width:286px;
+  background:#c8c4ca;
+  border:2px solid #f7f4f8;
+  border-right-color:#55505a;
+  border-bottom-color:#55505a;
+  z-index:600;
+  display:none;
+  box-shadow:5px -5px 0 rgba(24,12,32,.18);
+  font-family:"Courier New",monospace;
+  color:#241b29;
+}
 
   .start-menu{
     position:absolute;left:4px;bottom:46px;width:286px;
