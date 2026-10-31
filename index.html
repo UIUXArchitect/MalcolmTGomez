@@ -1529,6 +1529,45 @@ cases.upsl.pdfLabel = 'View UPSL Corporate Sponsorship Presentation';
   
 cases.dtc.inlinePdf = true;
 
+/* =========================================
+   ALLCLOUD — PROJECT PRESENTATION
+   ========================================= */
+
+cases.allcloud.pdfFile =
+  'AllCloud_Executive_Brand_Rebuild.pdf';
+
+cases.allcloud.pdfLabel =
+  'View AllCloud Executive Presentation (14 Slides)';
+
+cases.allcloud.inlinePdf = true;
+
+
+/* =========================================
+   HPE / KORN FERRY — PROCESS DESIGN
+   ========================================= */
+
+cases.hperpo.pdfFile =
+  'HPE_KornFerry_RPO_21_Page_Recreated_Deck.pdf';
+
+cases.hperpo.pdfLabel =
+  'View HPE / Korn Ferry Process Design (21 Pages)';
+
+cases.hperpo.inlinePdf = true;
+
+
+/* =========================================
+   PAYPAL — RECHARGE
+   ========================================= */
+
+cases.paypalrecharge.pdfFile =
+  'PayPal_Recharge_Executive_Brand_Rebuild.pdf';
+
+cases.paypalrecharge.pdfLabel =
+  'View PayPal Recharge Executive Presentation (14 Slides)';
+
+cases.paypalrecharge.inlinePdf = true;
+
+  
   const projectListMarkup = projectsBody.innerHTML;
 
  function maybeOpenWelcome(){
@@ -1733,7 +1772,7 @@ const pdfUrl = c.pdfFile
 const inlineDeck = c.inlinePdf && pdfUrl
   ? `<iframe
        src="${pdfUrl}#toolbar=1"
-       title="Don't Tell Comedy Partnership Deck"
+       title="${c.title} Presentation"
        style="width:100%;height:480px;border:1px solid var(--line);background:#fff;"
        loading="lazy">
      </iframe>`
